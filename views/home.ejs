@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>
+            To Do List
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" href="/css/home.css">
+       <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+
+
+<script src="/js/home.js"></script>
+       
+    </head>
+    <body>
+      <div id="box">
+      <h1>TO DO APP</h1>
+<!-- creating form -->
+      <form action="/create-task" method="POST"> 
+        <table>
+          <tr>
+            <div id="description">  <fieldset>
+              <!-- write the description of task -->
+              <legend>Description</legend><input type="text" name='task' placeholder="what do you need to do?" required></fieldset>
+
+            </div>
+         <tr>  <td><fieldset id="field"><legend>Category</legend>
+          <!-- selecting the category of task -->
+          <select id="select" name="importance">
+    <option style="display:none">Choose a category</option>
+    <option value="Choose"  disabled>Choose a category</option>
+    <option value="work">WORK</option>
+    <option value="personal">PERSONAL</option>
+    <option value="home">HOME</option>
+    <option value="others">OTHERS</option>
+  </select></fieldset></td>
+  <!-- deadline of task -->
+           <td><fieldset><legend>Deadline</legend><input id="deadline" type="date" name="deadline"></fieldset></td>
+      </tr>
+         <tr> 
+           <!-- add button -->
+           <td><button type="submit" id="add"><i class="fa fa-plus" style="display:inline-block;font-size:20px"></i><h3 style="display:inline-block;">&nbspAdd Task</h3></button></td>
+            </tr>
+          </table>
+      </form>
+
+  <!-- displaying tasks -->
+      <form action="/remove-task" method="POST">
+        <!-- delete button -->
+      <button type="submit" id="delete" > <i class="fa fa-trash" style="display:inline-block;font-size:20px"></i><h3 style="display:inline-block;">&nbspRemove </h3></button>
+      <ul>
+        <% for(let i of task_list){%>
+          <li class='add'>
+            <hr style="width:39vw; margin-left:-2vw; color:silver">
+            <!-- description of task -->
+              <input type="checkbox"  name="check" value="<%= i._id %>" style="display:inline-flex; width:20px; height:20px;">
+              <label for="checkbox" >
+            <!-- kind of task -->
+            <p id="name"><%=i.task%></p>
+         
+              <%if(i.importance=='personal'){%>
+                <div id="impor"><h4  style="background-color: greenyellow;"><%=i.importance%></h4></div>
+                <%
+              }%>
+              <%if(i.importance=='home'){%>
+                <div id="impor" ><h4  style="background-color:palevioletred;"><%=i.importance%></h4></div>
+                <%
+              }%>
+              <%if(i.importance=='work'){%>
+                <div  id="impor"><h4  style="background-color: red;"><%=i.importance%></h4></div>
+                <%
+              }%>
+            <!-- displaying date i.e. deadline-->
+            <div id="date">
+              
+              <h4><i class="fa fa-calendar" style="font-size:15px; color:gray"></i>&nbsp;&nbsp;<%=i.deadline%></h4></div>
+            </label>
+        
+          </li>
+          <%}
+     %>
+      </ul>
+    </form>
+      <hr>
+</div>
+    </body>
+</html>
